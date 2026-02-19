@@ -1,0 +1,8 @@
+.wrapperAddTask{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 200px;
+    width: 200px;
+}

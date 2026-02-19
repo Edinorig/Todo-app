@@ -1,0 +1,22 @@
+.app{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.wrapperTasks{
+    display: grid;
+    grid-template-columns:  repeat(2, 1fr);
+
+    gap: 1rem 1rem;
+
+    width: 800px;
+}
+
+.wrapperMain{
+    display: flex;
+    justify-content: space-between;
+
+    width: 70rem;
+    padding: 4rem 8rem;
+}
