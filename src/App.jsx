@@ -36,6 +36,10 @@ function App() {
     });
   };
 
+  const handleRename = (value) => {
+    
+  }
+
   return (
     <div className="app">
       <div className="wrapperMain">
