@@ -10,20 +10,19 @@ function App() {
       tittle: "Do Homework",
       dueDate: "3 days left",
       body: "Do four exercize for math and aftercreate anoter axercise",
+      isRename: false,
     },
     {
       id: crypto.randomUUID(),
       tittle: "Worckout",
       dueDate: "13 days left",
       body: "Do jym all the day",
+      isRename: false,
     },
   ]);
 
   const handleAddTask = (value) => {
-    console.log(value);
-
     setTask((event) => [...event, value]);
-    console.log("Here is taks" + task);
   };
 
   const handleDone = (value) => {
@@ -36,9 +35,33 @@ function App() {
     });
   };
 
-  const handleRename = (value) => {
-    
-  }
+  const handleRename = (id, tittle, dueDate, bodyText) => {
+    setTask((event) => {
+      return event.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            isRename: !el.isRename,
+          };
+        }
+        return el;
+      });
+    });
+  };
+
+  const handleTaskChange = (id, filed, value) => {
+    setTask((prev) => {
+      return prev.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            [filed]: value,
+          };
+        }
+        return el;
+      });
+    });
+  };
 
   return (
     <div className="app">
@@ -46,7 +69,13 @@ function App() {
         <AddTask props={task} handleAddTask={handleAddTask} />
         <div className="wrapperTasks">
           {task.map((value) => (
-            <Task props={value} key={value.id} handleDone={handleDone} />
+            <Task
+              props={value}
+              key={value.id}
+              handleDone={handleDone}
+              handleRename={handleRename}
+              handleTaskChange={handleTaskChange}
+            />
           ))}
         </div>
       </div>
