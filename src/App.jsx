@@ -2,6 +2,7 @@ import "./App.css";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
 import { useState } from "react";
+import Counter from "./components/Counter";
 
 function App() {
   const [task, setTask] = useState([
@@ -11,6 +12,7 @@ function App() {
       dueDate: "3 days left",
       body: "Do four exercize for math and aftercreate anoter axercise",
       isRename: false,
+      isCompleted: false,
     },
     {
       id: crypto.randomUUID(),
@@ -18,6 +20,7 @@ function App() {
       dueDate: "13 days left",
       body: "Do jym all the day",
       isRename: false,
+      isCompleted: false,
     },
   ]);
 
@@ -25,12 +28,22 @@ function App() {
     setTask((event) => [...event, value]);
   };
 
-  const handleDone = (value) => {
+  const totalTask = task.length;
+  const doneTasks = task.filter((event) => event.isCompleted).length
+  const activeTasks = task.filter((event) => !event.isCompleted).length
+
+  const handleDone = (id) => {
+    console.log(id);
+    
     setTask((event) => {
-      return event.filter((el) => {
-        if (el.id !== value) {
-          return el;
+      return event.map((el) => {
+        if (el.id === id) {
+          return {
+            ...el,
+            isCompleted: !el.isCompleted,
+          }
         }
+        return el;
       });
     });
   };
@@ -65,6 +78,10 @@ function App() {
 
   return (
     <div className="app">
+      <Counter counter={totalTask} counterName={"Total"}/>
+      <Counter counter={doneTasks} counterName={"Done"}/>
+      <Counter counter={activeTasks} counterName={"Active"}/>
+      {/* <Counter counter={task} counterName={"Total"}/> */}
       <div className="wrapperMain">
         <AddTask props={task} handleAddTask={handleAddTask} />
         <div className="wrapperTasks">
